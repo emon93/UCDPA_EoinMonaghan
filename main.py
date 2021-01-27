@@ -12,7 +12,7 @@ print(annual_earnings.head(5))
 # Check data is readable
 
 property_prices['Year'] = pd.DatetimeIndex(property_prices['Date of Sale (dd/mm/yyyy)']).year
-# Add a year only column to property price register by converting an orginal dates column
+# Add a year only column to property price register by converting an original dates column
 
 print(property_prices[['Year', 'Price (€)']].head(5))
 # Show year and price column (list included above)
@@ -49,21 +49,20 @@ full_time_annual_earnings = annual_earnings[annual_earnings['Type of Employment'
 # Filtering for full time workers average earnings
 
 full_time_annual_earnings1 = full_time_annual_earnings.set_index(['Year', 'NACE Rev 2 Economic Sector'])
-print(full_time_annual_earnings1)
-# Setting economic sector as the index of the dataframe
+earnings_2010_to_2019 = full_time_annual_earnings1.loc[2010 : 2019]
+print(earnings_2010_to_2019)
+# Setting economic sector as the index of the dataframe and slicing for the period between 2010 to 2019 to the equal period of property price register.
 
-avg_earnings_per_sector = full_time_annual_earnings1.groupby('NACE Rev 2 Economic Sector', as_index=True)['VALUE'].mean()
-highest_avg_earnings_per_sector = avg_earnings_per_sector.sort_values(ascending=False)
-print(highest_avg_earnings_per_sector.head(10).round(0))
+avg_earnings_per_sector = earnings_2010_to_2019.groupby('NACE Rev 2 Economic Sector', as_index=True)['VALUE'].mean()
+highest_avg_earnings_per_sector = earnings_2010_to_2019.sort_values('VALUE', ascending=False)
+print(highest_avg_earnings_per_sector.head(20).round(0))
 # Getting the average earnings for full time workers per economic sector and arranging them in ascending order
-# Information and communication is nearly top of the list which is interesting.
+# Information and communication is top of the list in the last 10 years.
 
-import numpy as np
-avg_earnings_per_sector_np = np.array(highest_avg_earnings_per_sector)
-value_np = avg_earnings_per_sector_np[:-1]
-print('The max full time average earnings during the period was', value_np.max().round(0), 'euros')
-print('The min full time average earnings during the period was',value_np.min().round(0), 'euros')
 
+# from matplotlib import pyplot
+# highest_avg_price.head(5).plot()
+# pyplot.show()
 
 
 
