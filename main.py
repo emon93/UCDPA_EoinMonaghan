@@ -76,7 +76,7 @@ highest_wages_per_sector_2019['House Value Affordability'] = (
             highest_wages_per_sector_2019['Average Wage'] * 1.259 * 2 * 2.5).round(0)
 wage_vs_house_price = highest_wages_per_sector_2019.merge(highest_price_per_county_2019, on='Year', how='outer')
 wage_vs_house_price_2019 = wage_vs_house_price.loc[2019]
-for index, row in wage_vs_house_price_2019().
+
 # House Affordability is based off average wage, adding average net tax, doubling it for two income earners and multiplying it by 2.5 times as general rule to afford mortgage
 
 dublin_avg_price_2019 = 418854
