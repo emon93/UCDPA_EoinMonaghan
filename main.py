@@ -74,13 +74,13 @@ fig = plt.figure(figsize=(20, 3))
 
 highest_wages_per_sector_2019['House Value Affordability'] = (highest_wages_per_sector_2019['Average Wage'] * 1.259 * 2 * 2.5).round(0)
 # House Affordability column created
-# These column values are calculated as the average wage*average net tax*2 income earners*2.5 times (general rule for affording mortgage on gross income)
+# House affordability column values are calculated as the average wage*average net tax*2 income earners*2.5 times (general rule for affording mortgage on gross income)
 
 wage_vs_house_price = highest_wages_per_sector_2019.merge(highest_price_per_county_2019, on='Year', how='outer')
 wage_vs_house_price_2019 = wage_vs_house_price.loc[2019]
 Total_house_prices_2019 = wage_vs_house_price_2019['Price'].sum()
 Total_Affordability_2019 = wage_vs_house_price_2019['House Value Affordability'].sum()
-print(Total_house_prices_2019 - Total_Affordability_2019)
+print("The difference between average house prices and worker affordability is", Total_house_prices_2019 - Total_Affordability_2019)
 # Merging the average wage and pandas dataframes to show a comparison between average house affordability and average house prices
 # Summing total house prices and the average workers affordability - noting a big difference below
 
