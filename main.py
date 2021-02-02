@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
-
-# Import pandas and numpy as a package
+# Import pandas and numpy as packages
 
 property_prices = pd.read_csv(
     '/Users/eoinmonaghan/PycharmProjects/UCDRubricProject/Property_Price_Register_Ireland-05-04-2019 2.csv')
@@ -17,7 +16,7 @@ property_prices['Price Value'] = (property_prices['Price (€)'].replace('[\€,
 property_prices['Price Value'].round(decimals=1)
 # Add a year only column to property price register by converting an original dates column
 # Show year and price column (list included above)
-# Add column which includes converted Currency column to float and round figures
+# Add column which includes converted currency types to float types and round figures
 
 avg_property_prices = property_prices.groupby(['Year', 'County'], as_index=False)['Price Value'].agg(np.mean)
 avg_property_prices.columns = ['Year', 'County', 'Price']
@@ -31,8 +30,9 @@ top_10_counties_10 = highest_price_per_county_2010.iloc[0:9]
 bottom_10_counties_10 = highest_price_per_county_2010.iloc[-11:-1]
 top_10_counties_19 = highest_price_per_county_2019.iloc[0:9]
 bottom_10_counties_19 = highest_price_per_county_2019.iloc[-11:-1]
-# Setting county and year columns as the indices of the dataframe and slicing for the year 2010 and 2019.
-# Showing the average house prices per counties for 2010 and 2019 from largest to smallest
+# Showing the average house prices per counties for 2010 and 2019 sorting the values from largest to smallest
+# Setting year column as the index of the dataframe and slicing for the year 2010 and 2019
+# Getting the top and bottom 10 counties in terms of average prices from this list
 
 full_time_earnings = annual_earnings[annual_earnings['Type of Employment'].str.contains("Full-time")]
 avg_wages_per_sector = full_time_earnings.groupby(['Year', 'NACE Rev 2 Economic Sector'], as_index=False)['VALUE'].agg(
@@ -45,9 +45,9 @@ highest_wages_per_sector_2010 = highest_wages_per_sector1.loc[2010]
 highest_wages_per_sector_2019 = highest_wages_per_sector1.loc[2019]
 print(highest_wages_per_sector_2010)
 print(highest_wages_per_sector_2019)
-# Filtering for full time workers average earnings
-# Showing the average earnings for full time workers per economic sector for 2010 and 2019 and arranging them in order of highest to lowest
-# Setting index to year
+# Filtering for full time workers average earnings, removing part time earnings etc.
+# Showing the average earnings for full time workers per economic sector and arranging them in order of highest to lowest
+# Setting index to year and slicing for the year 2010 and 2019
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -72,12 +72,17 @@ sns.scatterplot(data=highest_wages_per_sector_2019, x='Average Wage', y='Job Sec
 fig = plt.figure(figsize=(20, 3))
 # Graph 2 relating to average wages per each sector in 2010 and the incremental increases in average wages from 2010 to 2019
 
-highest_wages_per_sector_2019['House Value Affordability'] = (
-            highest_wages_per_sector_2019['Average Wage'] * 1.259 * 2 * 2.5).round(0)
+highest_wages_per_sector_2019['House Value Affordability'] = (highest_wages_per_sector_2019['Average Wage'] * 1.259 * 2 * 2.5).round(0)
+# House Affordability column created
+# These column values are calculated as the average wage*average net tax*2 income earners*2.5 times (general rule for affording mortgage on gross income)
+
 wage_vs_house_price = highest_wages_per_sector_2019.merge(highest_price_per_county_2019, on='Year', how='outer')
 wage_vs_house_price_2019 = wage_vs_house_price.loc[2019]
-
-# House Affordability is based off average wage, adding average net tax, doubling it for two income earners and multiplying it by 2.5 times as general rule to afford mortgage
+Total_house_prices_2019 = wage_vs_house_price_2019['Price'].sum()
+Total_Affordability_2019 = wage_vs_house_price_2019['House Value Affordability'].sum()
+print(Total_house_prices_2019 - Total_Affordability_2019)
+# Merging the average wage and pandas dataframes to show a comparison between average house affordability and average house prices
+# Summing total house prices and the average workers affordability - noting a big difference below
 
 dublin_avg_price_2019 = 418854
 westmeath_avg_price_2019 = 180586
