@@ -61,6 +61,7 @@ plt.ylabel('County')
 sns.scatterplot(data=top_10_counties_10, x='Price', y='County', alpha=1, label='2010')
 sns.scatterplot(data=top_10_counties_19, x='Price', y='County', alpha=0.5, label='2019')
 fig = plt.figure(figsize=(20, 3))
+plt.show()
 # Graph 1 relating to average property prices per the top 10 counties in 2010 and the incremental increases in average prices from 2010 to 2019
 
 sns.set_theme(style="whitegrid")
@@ -70,6 +71,7 @@ plt.ylabel('Job Sector')
 sns.scatterplot(data=highest_wages_per_sector_2010, x='Average Wage', y='Job Sector', alpha=1, label='2010')
 sns.scatterplot(data=highest_wages_per_sector_2019, x='Average Wage', y='Job Sector', alpha=0.5, label='2019')
 fig = plt.figure(figsize=(20, 3))
+plt.show()
 # Graph 2 relating to average wages per each sector in 2010 and the incremental increases in average wages from 2010 to 2019
 
 highest_wages_per_sector_2019['House Value Affordability'] = (highest_wages_per_sector_2019['Average Wage'] * 1.259 * 2 * 2.5).round(0)
